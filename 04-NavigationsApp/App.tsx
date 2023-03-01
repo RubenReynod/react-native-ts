@@ -4,6 +4,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 //import { StackNavigator } from './src/navigator/StackNavigator';
 import { LateralMenuFinal } from './src/navigator/LateralMenuFinal';
 import { colors } from './src/theme/theme';
+import { AuthProvider } from './src/context/AuthContext';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -16,8 +17,18 @@ const MyTheme = {
 const App = () => {
   return (
     <NavigationContainer theme={MyTheme}>
-      <LateralMenuFinal />
+      <AppState>
+        <LateralMenuFinal />
+      </AppState>
     </NavigationContainer>
+  );
+};
+
+const AppState = ({children}: any) => {
+  return (
+    <AuthProvider>
+      {children}
+    </AuthProvider>
   );
 };
 

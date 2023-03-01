@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Text, useWindowDimensions, View, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 import { Settings } from '../screens/Settings.screen';
 import { styles } from '../theme/theme';
 import { Tabs } from './Tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AuthContext } from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,6 +24,7 @@ export const LateralMenuFinal = () => {
 };
 
 const MenuInterno = ({ navigation }: DrawerContentComponentProps) => {
+  const { authState } = useContext(AuthContext);
   return (
     <DrawerContentScrollView>
       {/* Avatar */}
@@ -48,7 +50,7 @@ const MenuInterno = ({ navigation }: DrawerContentComponentProps) => {
           onPress={() => navigation.navigate('Settings')}
         >
           <Icon name="settings-outline" size={20} />
-          <Text style={styles.menuText}>Settings</Text>
+          <Text style={styles.menuText}>{ authState.isLoggedIn ? authState.username : 'Settings'}</Text>
         </TouchableOpacity>
       </View>
     </DrawerContentScrollView>
